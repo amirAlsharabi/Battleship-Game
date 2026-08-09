@@ -4,17 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>⚓ BattleShip GAME</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script defer src="./js/app.js"></script>
-    <script defer src="./js/data.js"></script>
-    <script defer src="./js/helpers.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+   
   </head>
   <body>
     <!-- project header -->
     <header>
       <h1>👾☠️🚢 BATTLESHIP</h1>
     </header>
-    <p id="instructions">place Your ships on the board</p>
+    <p id="message">place Your ships on the board</p>
     <section class="game-board">
       <button id="rotate">Rotate Ship 🔁</button>
       <div id="ship-dock"></div>
@@ -23,13 +21,13 @@
     <section id="game-area">
       <!-- Your board -->
       <div class="board-container">
-        <h3 id="your-board">Your Board</h3>
+        <h3>Your Board</h3>
         <div class="board" id="player-board"></div>
       </div>
 
       <!-- computer board -->
       <div class="board-container">
-        <h3 id="computer-board">Computer Board</h3>
+        <h3>Computer Board</h3>
         <div class="board" id="computer-board"></div>
       </div>
     </section>
@@ -47,5 +45,8 @@
         <li>Sink all 5 enemy ships before they sink yours!</li>
       </ol>
     </section>
+     <script defer src="./js/app.js"></script>
+    <script defer src="./js/data.js"></script>
+    <script defer src="./js/helpers.js"></script>
   </body>
 </html>

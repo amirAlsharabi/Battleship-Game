@@ -1,0 +1,295 @@
+/* reset stuff so padding doesnt break everything */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* dark navy background */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at top, #0f1b3d 0%, #070d1f 100%);
+  color: #e0e6f1;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+/* title */
+header {
+  margin-bottom: 10px;
+}
+
+header h1 {
+  font-size: 3rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #4fc3f7;
+  text-shadow: 0 0 20px rgba(79, 195, 247, 0.4), 0 4px 10px rgba(0,0,0,0.5);
+  margin-bottom: 10px;
+}
+
+/* the message box that says "your turn" etc */
+#message {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffd54f;
+  min-height: 36px;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+/* the box with the rotate button and ships */
+.game-board {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto 30px auto;
+  backdrop-filter: blur(10px);
+}
+
+/* rotate button */
+#rotate {
+  background: linear-gradient(135deg, #2196f3, #0d47a1);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+  transition: all 0.2s ease;
+  margin-bottom: 20px;
+}
+
+#rotate:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5);
+}
+
+#rotate:active {
+  transform: translateY(0);
+}
+
+/* where the ships sit before u place them */
+#ship-dock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  min-height: 60px;
+}
+
+/* the gray ship blocks */
+.ship-in-dock {
+  background: linear-gradient(135deg, #607d8b, #455a64);
+  border: 2px solid #78909c;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+  padding: 0 12px;
+  user-select: none;
+}
+
+.ship-in-dock:hover {
+  transform: scale(1.05);
+  border-color: #4fc3f7;
+  box-shadow: 0 0 12px rgba(79, 195, 247, 0.4);
+}
+
+/* when u click a ship to select it */
+.ship-in-dock.selected {
+  background: linear-gradient(135deg, #ef5350, #c62828);
+  border-color: #ffcdd2;
+  box-shadow: 0 0 15px rgba(239, 83, 80, 0.5);
+}
+
+/* both boards side by side */
+#game-area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.board-container h3 {
+  font-size: 1.4rem;
+  color: #81d4fa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* the actual 10x10 grid */
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 44px);
+  grid-template-rows: repeat(10, 44px);
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid rgba(79, 195, 247, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(79, 195, 247, 0.05);
+}
+
+/* each little square */
+.cell {
+  width: 44px;
+  height: 44px;
+  background: rgba(25, 55, 95, 0.8);
+  border: 1px solid rgba(79, 195, 247, 0.15);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cell:hover {
+  background: rgba(41, 98, 155, 0.9);
+  border-color: rgba(79, 195, 247, 0.5);
+  transform: scale(1.08);
+  z-index: 2;
+}
+
+/* when a ship is on ur board */
+.cell.ship {
+  background: linear-gradient(135deg, #78909c, #546e7a);
+  border-color: #90a4ae;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+}
+
+/* red when u hit something */
+.cell.hit {
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  border-color: #ffcdd2;
+  box-shadow: 0 0 12px rgba(229, 57, 53, 0.6);
+  animation: hitPulse 0.4s ease;
+}
+
+/* white/blue dot when u miss */
+.cell.miss {
+  background: rgba(144, 202, 249, 0.15);
+  border-color: rgba(144, 202, 249, 0.4);
+}
+
+.cell.miss::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #90caf9;
+  border-radius: 50%;
+  margin: 16px auto;
+  opacity: 0.7;
+}
+
+/* little bounce animation for hits */
+@keyframes hitPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* play again button */
+#play-again {
+  background: linear-gradient(135deg, #66bb6a, #2e7d32);
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(102, 187, 106, 0.3);
+  transition: all 0.2s ease;
+  margin-bottom: 30px;
+}
+
+#play-again:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(102, 187, 106, 0.5);
+}
+
+/* hide stuff */
+.hidden {
+  display: none !important;
+}
+
+/* how to play box */
+#instructions {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+  backdrop-filter: blur(10px);
+}
+
+#instructions h2 {
+  color: #4fc3f7;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+#instructions ol {
+  padding-left: 24px;
+  line-height: 2;
+  font-size: 1.05rem;
+  color: #bbdefb;
+}
+
+#instructions li {
+  margin-bottom: 6px;
+}
+
+/* make it work on phones */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  #game-area {
+    gap: 30px;
+  }
+
+  .board {
+    grid-template-columns: repeat(10, 34px);
+    grid-template-rows: repeat(10, 34px);
+    gap: 1px;
+    padding: 6px;
+  }
+
+  .cell {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cell.miss::after {
+    width: 6px;
+    height: 6px;
+    margin: 12px auto;
+  }
+}
