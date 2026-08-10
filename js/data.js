@@ -20,21 +20,22 @@ const shipData = [
 const player1 = 1;
 const player2 = 2;
 
-//game status (phase)
-const gamePhase = {
-  setup: 1,
-  playing: 2,
-  gameOver: 3,
-};
-
-// player board data
-const player1Board = [10*10].fill(water);
-const computerBoard = [10*10].fill(water);
-
-// player ship data
-const player1Ships = [];
-const computerShips = [];
-
-// game 
+//game status
+// gameState tracks everything happening right now
+let gameState = {
+  phase: 'setup',        
+  currentTurn: 'player', // whose turn it is
+  direction: 'horizontal', // ship placement direction
+  
+  player: {
+    board: [],   // 10x10 array
+    ships: []    // ships with positions and health
+  },
+  
+  computer: {
+    board: [],   // 10x10 array
+    ships: []    // ships with positions and health
+  }
+}; 
 
 
