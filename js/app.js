@@ -4,6 +4,7 @@ const computerBoardEl = document.querySelector("#computer-board");
 const rotateBtn = document.getElementById("rotate");
 const shipDockEl = document.getElementById("ship-dock");
 const playAgainBtn = document.getElementById("play-again");
+const messageEl = document.getElementById("message");
 
 //run when the page loads
 function init() {
@@ -43,13 +44,14 @@ function renderBoard(boardEl, boardArray, showShips) {
   for (let row = 0; row < boardSize; row++) {
     for (let col = 0; col < boardSize; col++) {
       const cell = document.createElement("div");
+      cell.classList.add("cell");  
       cell.dataset.row = row;
       cell.dataset.col = col;
       const value = boardArray[row][col];
       if (value === hit) {
         cell.classList.add("hit");
       }
-      if (value === miss) {
+      else if (value === miss) {
         cell.classList.add("miss");
       } else if (value === ship && showShips) {
         cell.classList.add("ship");
@@ -76,6 +78,9 @@ function rotateShips() {
   if (gameState.direction === "horizontal") {
     gameState.direction = "vertical";
     shipDockEl.classList.add("vertical");
+  } else {
+    gameState.direction = "horizontal"
+    shipDockEl.classList.remove("vertical")
   }
   rotateBtn.textContent = "Rotate Ship 🔁 (" + gameState.direction + ")";
   messageEl.textContent = "Placement direction: " + gameState.direction;
@@ -88,3 +93,5 @@ function resetGame() {
   playAgainBtn.classList.add("hidden");
   init();
 }
+
+document.addEventListener('DOMContentLoaded', init);
