@@ -39,4 +39,24 @@ function init() {
   console.log('Game initialized');
 }
 
-
+function renderBoard(boardEl, boardArray, showShips) {
+    boardEl.innerHTML = '';
+    for (let row = 0; row < boardSize; row++) {
+        for (let col =0; col < boardSize; col++) {
+            const cell = document.createElement('div');
+            cell.dataset.row=row;
+            cell.dataset.col=col;
+            const value = boardArray[row][col];
+            if (value === hit){
+                cell.classList.add('hit');
+            }
+            if (value === miss){
+                cell.classList.add('miss');
+            }
+            else if (value === ship && showShips){
+                cell.classList.add('ship');
+            }
+            boardEl.appendChild(cell);
+        }
+    }
+}
