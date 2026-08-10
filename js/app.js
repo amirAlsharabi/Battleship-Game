@@ -11,8 +11,32 @@ function init() {
   // create the boards
   gameState.player.board = createBoard();
   gameState.computer.board = createBoard();
+
+  gameState.player.ships = shipData.map(ship => ({ 
+    ...ship,
+    cells: [],
+    hits: 0,
+    sunk: false,
+    placed: false
+  }))
+
+  gameState.computer.ships = shipData.map(ship => ({ 
+    ...ship,
+    cells: [],
+    hits: 0,
+    sunk: false,
+    placed: false
+  }))
+
+  renderBoard(playerBoardEl, gameState.player.board, true);
+  renderBoard(computerBoardEl, gameState.computer.board, false);
+
+  createShipDock();
+
+  rotateBtn.addEventListener('click',rotateShips);
+  playAgainBtn.addEventListener('click', resetGame);
+
+  console.log('Game initialized');
 }
 
 
-
-    
