@@ -77,6 +77,14 @@ function rotateShips() {
     gameState.direction = "vertical";
     shipDockEl.classList.add("vertical");
   }
-    rotateBtn.textContent = 'Rotate Ship 🔁 (' + gameState.direction + ')';
-    messageEl.textContent = 'Placement direction: ' + gameState.direction;
+  rotateBtn.textContent = "Rotate Ship 🔁 (" + gameState.direction + ")";
+  messageEl.textContent = "Placement direction: " + gameState.direction;
+}
+
+function resetGame() {
+  gameState.phase = "setup";
+  gameState.currentTurn = "player";
+  gameState.direction = "horizontal";
+  playAgainBtn.classList.add("hidden");
+  init();
 }
