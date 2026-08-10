@@ -28,13 +28,13 @@ const gamePhase = {
 };
 
 // player board data
-const player1Board = [];
-const computerBoard = [];
+const player1Board = [10*10].fill(water);
+const computerBoard = [10*10].fill(water);
 
 // player ship data
 const player1Ships = [];
 const computerShips = [];
 
-//
+// game 
 
 
