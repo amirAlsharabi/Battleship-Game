@@ -38,4 +38,15 @@ let gameState = {
   }
 }; 
 
-
+// make a function to fill the board 
+function createBoard(){
+let board = [];
+for (let i=0; i < boardSize ; i++){
+    let newRow = [];
+    for (let j=0; j < boardSize ; j++){
+      newRow.push(water);
+    }
+    board.push(newRow);
+}
+return board;
+}
