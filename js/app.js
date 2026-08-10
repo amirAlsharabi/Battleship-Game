@@ -60,3 +60,15 @@ function renderBoard(boardEl, boardArray, showShips) {
         }
     }
 }
+
+function createShipDock() {
+    shipDockEl.innerHTML = '';
+    gameState.player.ships.forEach((ship, index) => {
+        const shipEl = document.createElement('div');
+        shipEl.classList.add('ship-in-dock');
+        shipEl.dataset.index = index;
+        shipEl.dataset.size = ship.size;
+        shipEl.style.width = (ship.size * 42) + 'px';
+        shipEl.textContent = ship.name;
+        shipDockEl.appendChild(shipEl);
+    })}
