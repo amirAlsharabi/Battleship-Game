@@ -27,7 +27,9 @@ function init() {
     sunk: false,
     placed: false,
   }));
-
+gameState.computer.ships.forEach((ship) => {
+  placeShipRandomly(gameState.computer.board, ship)
+})
   renderBoard(playerBoardEl, gameState.player.board, true);
   renderBoard(computerBoardEl, gameState.computer.board, false);
 
