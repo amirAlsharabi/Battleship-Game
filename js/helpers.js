@@ -1,7 +1,7 @@
 function isValidPlacement(board, row, col, size, direction) {
-  let checkRow;
-  let checkCol;
-  for (let i = 0; i < size - 1; i++) {
+  for (let i = 0; i < size; i++) {
+    let checkRow = row;
+    let checkCol = col;
     if (direction === "horizontal") {
       checkCol = col + i;
     } else {
@@ -23,10 +23,10 @@ function placeShipRandomly(board, shipObj) {
   while (!placed) {
     let col = Math.floor(Math.random() * boardSize);
     let row = Math.floor(Math.random() * boardSize);
-    let direction = Math.floor(Math.random() * 0.5 ? "horizontal" : "vertical");
+    let direction = Math.random() < 0.5 ? "horizontal" : "vertical" ;
 
     if (isValidPlacement(board, row, col, shipObj.size, direction)) {
-      ship.cell = [];
+      shipObj.cells = [];
 
       for (let i = 0; i < shipObj.size; i++) {
         let placeRow = row;
@@ -34,14 +34,17 @@ function placeShipRandomly(board, shipObj) {
         if (direction === "horizontal") {
           placeCol = col + i;
         } else {
-          placeRow = row + 1;
+          placeRow = row + i;
         }
         board[placeRow][placeCol] = ship;
-        shipObj.cell.push([placeRow, placeCol]);
-        ship.placed = true;
+        shipObj.cells.push([placeRow, placeCol]);
       }
+      shipObj.placed = true;
+      placed = true;
     }
-    ship.placed = true;
-    placed = true;
   }
+}
+// function for place ship for player
+function placePlayerShip (){
+
 }
