@@ -27,9 +27,9 @@ function init() {
     sunk: false,
     placed: false,
   }));
-gameState.computer.ships.forEach((ship) => {
-  placeShipRandomly(gameState.computer.board, ship)
-})
+  gameState.computer.ships.forEach((ship) => {
+    placeShipRandomly(gameState.computer.board, ship);
+  });
   renderBoard(playerBoardEl, gameState.player.board, true);
   renderBoard(computerBoardEl, gameState.computer.board, false);
 
@@ -46,14 +46,13 @@ function renderBoard(boardEl, boardArray, showShips) {
   for (let row = 0; row < boardSize; row++) {
     for (let col = 0; col < boardSize; col++) {
       const cell = document.createElement("div");
-      cell.classList.add("cell");  
+      cell.classList.add("cell");
       cell.dataset.row = row;
       cell.dataset.col = col;
       const value = boardArray[row][col];
       if (value === hit) {
         cell.classList.add("hit");
-      }
-      else if (value === miss) {
+      } else if (value === miss) {
         cell.classList.add("miss");
       } else if (value === ship && showShips) {
         cell.classList.add("ship");
@@ -73,6 +72,16 @@ function createShipDock() {
     shipEl.style.width = ship.size * 42 + "px";
     shipEl.textContent = ship.name;
     shipDockEl.appendChild(shipEl);
+    shipEl.addEventListener("click", () => {
+      gameState.selectedShipIndex = index;
+
+      document.querySelectorAll(".ship-in-dock").forEach((el) => {
+        el.classList.remove("selected");
+      });
+
+      shipEl.classList.add("selected");
+      messageEl.textContent = "Click on Your Board to place the " + ship.name;
+    });
   });
 }
 
@@ -81,8 +90,8 @@ function rotateShips() {
     gameState.direction = "vertical";
     shipDockEl.classList.add("vertical");
   } else {
-    gameState.direction = "horizontal"
-    shipDockEl.classList.remove("vertical")
+    gameState.direction = "horizontal";
+    shipDockEl.classList.remove("vertical");
   }
   rotateBtn.textContent = "Rotate Ship 🔁 (" + gameState.direction + ")";
   messageEl.textContent = "Placement direction: " + gameState.direction;
@@ -96,4 +105,4 @@ function resetGame() {
   init();
 }
 
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener("DOMContentLoaded", init);

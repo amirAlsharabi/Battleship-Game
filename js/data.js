@@ -22,6 +22,7 @@ let gameState = {
   phase: 'setup',        
   currentTurn: 'player', // whose turn it is
   direction: 'horizontal', // ship placement direction
+  selectedShipIndex : null,
   
   player: {
     board: [],   // 10x10 array
