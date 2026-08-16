@@ -45,6 +45,49 @@ function placeShipRandomly(board, shipObj) {
   }
 }
 // function for place ship for player
-function placePlayerShip (){
+function placeShipOnBoard(event){
+   if (gameState.selectedShipIndex === null){
+    
+    messageEl.textContent="Pick a ship from the dock first";
+    return ;
+  }
+  const selectShip = gameState.player.ships[gameState.selectedShipIndex];
+  const row = parseInt(event.target.dataset.row);
+  const col = parseInt(event.target.dataset.col);
+  const isValid = isValidPlacement(gameState.player.board,row,col,selectShip.size,gameState.direction)
+
+  if(isValid === false){
+    messageEl.textContent = "cant place there!";
+    return;
+  }
+  if (selectShip.placed === true){
+    messageEl.textContent = "That ship is already placed!";
+    return ;
+  }
+for( let i =0 ; i< selectShip.size;i++)  {
+  let placeRow = row ; 
+  let placeCol = col ;
+  if (gameState.direction === 'horizontal'){
+    placeCol = col + i 
+  }else {
+    placeRow = row + i;
+  }
+  gameState.player.board[placeRow][placeCol]= ship;
+  selectShip.cells.push([placeRow,placeCol]);
+}
+ selectShip.placed = true ;
+ renderBoard(playerBoardEl,gameState.player.board,true);
+ gameState.selectedShipIndex = null;
+document.querySelectorAll(".ship-in-dock").forEach((el) => {
+  el.classList.remove("selected");
+});
+for(let i = 0 ; i < gameState.player.ships ; i++){
+  if ( ship.placed === true){
+        startBattle();
+      
+  }
+}
+messageEl.textContent = selectShip.name + "placed!";
 
 }
+

@@ -42,11 +42,15 @@ function init() {
 }
 
 function renderBoard(boardEl, boardArray, showShips) {
+  
   boardEl.innerHTML = "";
   for (let row = 0; row < boardSize; row++) {
     for (let col = 0; col < boardSize; col++) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
+     if ( showShips === true && gameState.phase === 'setup'){
+       cell.addEventListener("click", placeShipOnBoard);
+     }
       cell.dataset.row = row;
       cell.dataset.col = col;
       const value = boardArray[row][col];
@@ -58,6 +62,7 @@ function renderBoard(boardEl, boardArray, showShips) {
         cell.classList.add("ship");
       }
       boardEl.appendChild(cell);
+
     }
   }
 }
@@ -106,3 +111,8 @@ function resetGame() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+function startBattle (){
+  gameState.phase = 'battle'
+  document.querySelector('.game-board'.style.display = 'none')
+}
