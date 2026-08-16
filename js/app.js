@@ -118,3 +118,32 @@ function startBattle() {
   messageEl.textContent = "⚔️ Battle begins! Click the Enemy Board to attack!";
   renderBoard(computerBoardEl, gameState.computer.board, false);
 }
+
+function handlePlayerAttack(event) {
+  const row = parseInt(event.target.dataset.row);
+  const col = parseInt(event.target.dataset.col);
+
+  if (
+    gameState.computer.board[row][col] === hit ||
+    gameState.computer.board[row][col] === miss
+  ) {
+    messageEl.textContent = "Already attacked there!";
+    return;
+  }
+  if (gameState.computer.board[row][col] === ship) {
+    gameState.computer.board[row][col] = hit;
+    messageEl.textContent = "🚀 Hit!";
+  }
+  for (let i = 0; i < gameState.computer.ships.length; i++) {
+    const currentShip = gameState.computer.ships[i];
+
+    if (cell[0] === row && cell[1] === col) {
+      currentShip.hits = currentShip.hits + 1;
+      break;
+    } else {
+      gameState.computer.board[row][col] = miss;
+      messageEl.textContent = "🤷‍♂️ miss";
+    }
+  }
+  renderBoard(computerBoardEl,gameState.computer.board,false);
+}
