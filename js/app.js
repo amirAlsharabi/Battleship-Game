@@ -106,6 +106,7 @@ function resetGame() {
   gameState.phase = "setup";
   gameState.currentTurn = "player";
   gameState.direction = "horizontal";
+    gameState.selectedShipIndex = null;  
   playAgainBtn.classList.add("hidden");
   init();
 }
