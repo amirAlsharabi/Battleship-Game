@@ -116,4 +116,5 @@ function startBattle() {
   gameState.phase = 'battle';
   document.querySelector('.game-board').style.display = 'none';
   messageEl.textContent = '⚔️ Battle begins! Click the Enemy Board to attack!';
+  renderBoard(computerBoardEl, gameState.computer.board, false);
 }

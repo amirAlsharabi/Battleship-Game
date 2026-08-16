@@ -81,11 +81,9 @@ for( let i =0 ; i< selectShip.size;i++)  {
 document.querySelectorAll(".ship-in-dock").forEach((el) => {
   el.classList.remove("selected");
 });
-for(let i = 0 ; i < gameState.player.ships ; i++){
-  if ( ship.placed === true){
-        startBattle();
-      
-  }
+const allPlaced = gameState.player.ships.every((ship) => ship.placed === true);
+if (allPlaced) {
+  startBattle();
 }
 messageEl.textContent = selectShip.name + "placed!";
 
