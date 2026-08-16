@@ -130,20 +130,25 @@ function handlePlayerAttack(event) {
     messageEl.textContent = "Already attacked there!";
     return;
   }
+
   if (gameState.computer.board[row][col] === ship) {
     gameState.computer.board[row][col] = hit;
     messageEl.textContent = "🚀 Hit!";
-  }
-  for (let i = 0; i < gameState.computer.ships.length; i++) {
-    const currentShip = gameState.computer.ships[i];
 
-    if (cell[0] === row && cell[1] === col) {
-      currentShip.hits = currentShip.hits + 1;
-      break;
-    } else {
-      gameState.computer.board[row][col] = miss;
-      messageEl.textContent = "🤷‍♂️ miss";
+    for (let i = 0; i < gameState.computer.ships.length; i++) {
+      const currentShip = gameState.computer.ships[i];
+      for (let j = 0; j < currentShip.cells.length; j++) {
+        const cell = currentShip.cells[j];
+        if (cell[0] === row && cell[1] === col) {
+          currentShip.hits = currentShip.hits + 1;
+          break;
+        }
+      }
     }
+  } else {
+    gameState.computer.board[row][col] = miss;
+    messageEl.textContent = "💦 Miss!";
   }
-  renderBoard(computerBoardEl,gameState.computer.board,false);
+
+  renderBoard(computerBoardEl, gameState.computer.board, false);
 }
