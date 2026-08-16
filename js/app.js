@@ -112,7 +112,8 @@ function resetGame() {
 
 document.addEventListener("DOMContentLoaded", init);
 
-function startBattle (){
-  gameState.phase = 'battle'
-  document.querySelector('.game-board'.style.display = 'none')
+function startBattle() {
+  gameState.phase = 'battle';
+  document.querySelector('.game-board').style.display = 'none';
+  messageEl.textContent = '⚔️ Battle begins! Click the Enemy Board to attack!';
 }
