@@ -108,6 +108,7 @@ function resetGame() {
   gameState.direction = "horizontal";
     gameState.selectedShipIndex = null;  
   playAgainBtn.classList.add("hidden");
+   document.querySelector(".game-board").style.display = "";
   init();
 }
 
