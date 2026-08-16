@@ -117,6 +117,7 @@ function startBattle() {
   document.querySelector(".game-board").style.display = "none";
   messageEl.textContent = "⚔️ Battle begins! Click the Enemy Board to attack!";
   renderBoard(computerBoardEl, gameState.computer.board, false);
+  renderBoard(playerBoardEl, gameState.player.board, true);
 }
 
 function handlePlayerAttack(event) {
@@ -141,9 +142,25 @@ function handlePlayerAttack(event) {
         const cell = currentShip.cells[j];
         if (cell[0] === row && cell[1] === col) {
           currentShip.hits = currentShip.hits + 1;
+
+          if (currentShip.hits === currentShip.size) {
+            currentShip.sunk = true;
+            messageEl.textContent = "🚢 You sunk the " + currentShip.name + "!";
+          }
+
           break;
         }
       }
+    }
+
+    const allSunk = gameState.computer.ships.every(
+      (ship) => ship.sunk === true,
+    );
+    if (allSunk) {
+      messageEl.textContent = "🏆 You Win!";
+      playAgainBtn.classList.remove("hidden");
+      renderBoard(computerBoardEl, gameState.computer.board, false);
+      return;
     }
   } else {
     gameState.computer.board[row][col] = miss;
@@ -151,4 +168,56 @@ function handlePlayerAttack(event) {
   }
 
   renderBoard(computerBoardEl, gameState.computer.board, false);
+
+  computerTurn();
+}
+
+function computerTurn() {
+  let row;
+  let col;
+
+  while (true) {
+    row = Math.floor(Math.random() * boardSize);
+    col = Math.floor(Math.random() * boardSize);
+
+    if (
+      gameState.player.board[row][col] !== hit &&
+      gameState.player.board[row][col] !== miss
+    ) {
+      break;
+    }
+  }
+  if (gameState.player.board[row][col] === ship) {
+    gameState.player.board[row][col] = hit;
+    messageEl.textContent = "Computer hit you ship 👾🚢😒";
+
+    for (let i = 0; i < gameState.player.ships.length; i++) {
+      const currentShip = gameState.player.ships[i];
+      for (let j = 0; j < currentShip.cells.length; j++) {
+        const cell = currentShip.cells[j];
+        if (cell[0] === row && cell[1] === col) {
+          currentShip.hits = currentShip.hits + 1;
+
+          if (currentShip.hits === currentShip.size) {
+            currentShip.sunk = true;
+            messageEl.textContent =
+              "🚢 Computer sunk the " + currentShip.name + "!";
+          }
+
+          break;
+        }
+      }
+    }
+    const allSunk = gameState.player.ships.every((ship) => ship.sunk === true);
+    if (allSunk) {
+      messageEl.textContent = "🏆 Computer Win!";
+      playAgainBtn.classList.remove("hidden");
+      renderBoard(playerBoardEl, gameState.player.board, true);
+      return;
+    }
+  } else {
+    gameState.player.board[row][col] = miss;
+    messageEl.textContent = "💦 Miss!";
+  }
+  renderBoard(playerBoardEl, gameState.player.board, true);
 }
