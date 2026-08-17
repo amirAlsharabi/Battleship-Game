@@ -34,3 +34,4 @@ A browser-based Battleship game where two players take turns firing at a hidden 
 10. As a player, I want the colors to be easy to see and the text to be readable.
 
 ## Screenshots
+![Game Preview](./images/image.png)
