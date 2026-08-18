@@ -39,4 +39,4 @@ A browser-based Battleship game where two players take turns firing at a hidden 
 
 ## Credit  
 
-[title](https://youtu.be/Ubh_k18sX4E?si=40ljV9X3B7I11mhqS)
+[Code with Ania Kubów](https://youtu.be/Ubh_k18sX4E?si=40ljV9X3B7I11mhqS)
