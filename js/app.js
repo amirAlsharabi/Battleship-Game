@@ -5,6 +5,7 @@ const rotateBtn = document.getElementById("rotate");
 const shipDockEl = document.getElementById("ship-dock");
 const playAgainBtn = document.getElementById("play-again");
 const messageEl = document.getElementById("message");
+const startOverBtn = document.getElementById("start-over")
 
 //run when the page loads
 function init() {
@@ -223,3 +224,10 @@ function computerTurn() {
   }
   renderBoard(playerBoardEl, gameState.player.board, true);
 }
+
+
+
+
+
+  startOverBtn.addEventListener("click", resetGame);
+

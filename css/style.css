@@ -293,3 +293,17 @@ header h1 {
     margin: 12px auto;
   }
 }
+
+#start-over {
+ background: linear-gradient(135deg, #66bb6a, #2e7d32);
+  color: white;
+  border: none;
+  padding: 14px 36px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(102, 187, 106, 0.3);
+  transition: all 0.2s ease;
+  margin-bottom: 30px;
+}
